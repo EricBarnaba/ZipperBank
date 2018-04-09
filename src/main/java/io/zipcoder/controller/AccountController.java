@@ -14,8 +14,14 @@ public class AccountController {
     AccountService service;
 
     @RequestMapping(value = "/accounts", method = RequestMethod.GET)
-    public ResponseEntity<?> getAllAccount() {
+    public ResponseEntity<?> getAllAccounts() {
         return null;
     }
+
+    @RequestMapping(value = "/accounts/{id}", method = RequestMethod.GET)
+    public ResponseEntity<?> getAccount() {
+        return null;
+    }
+
 
 }
