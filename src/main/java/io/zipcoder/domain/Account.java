@@ -2,21 +2,31 @@ package io.zipcoder.domain;
 
 import io.zipcoder.Enums.AccountType;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 @Entity
 public class Account {
 
+    @Id
+    @GeneratedValue
     private Long id;
 
+    @Column(name = "ACCOUNT_TYPE")
     private AccountType type;
 
+    @Column(name = "NICKNAME")
     private String nickname;
 
+    @Column(name = "REWARDS")
     private Integer rewards;
 
+    @Column(name = "BALANCE")
     private Double balance;
 
+    @Column(name = "CUSTOMER")
     private Customer customer;
 
     public Long getId() {

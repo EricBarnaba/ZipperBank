@@ -1,6 +1,8 @@
 package io.zipcoder.service;
 
 import io.zipcoder.domain.Account;
+import io.zipcoder.domain.Bill;
+import io.zipcoder.domain.Customer;
 import io.zipcoder.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,6 +47,18 @@ public class AccountService {
         else{
             return false;
         }
+    }
+
+    public Customer getAccountCustomer(Long id) {
+        return repo.findOne(id).getCustomer();
+    }
+
+    public List<Bill> getAccountBills(Long id) {
+        return null;
+    }
+
+    public void createBill(Long id, Bill bill) {
+
     }
 
 }

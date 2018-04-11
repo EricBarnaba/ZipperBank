@@ -1,6 +1,7 @@
 package io.zipcoder.controller;
 
 import io.zipcoder.domain.Account;
+import io.zipcoder.domain.Bill;
 import io.zipcoder.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -46,7 +47,7 @@ public class AccountController {
 
     @RequestMapping(value = "/accounts/{id}/customer", method = RequestMethod.GET)
     public ResponseEntity<?> getAccountCustomer(@PathVariable Long id) {
-        return null;
+        return new ResponseEntity<>(service.getAccountCustomer(id), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/accounts/{id}/bills", method = RequestMethod.GET)
@@ -55,7 +56,7 @@ public class AccountController {
     }
 
     @RequestMapping(value = "/accounts/{id}/bills", method = RequestMethod.POST)
-    public ResponseEntity<?> createBill(@PathVariable Long id) {
+    public ResponseEntity<?> createBill(@PathVariable Long id, @RequestBody Bill bill) {
         return null;
     }
 
