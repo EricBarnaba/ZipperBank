@@ -1,12 +1,11 @@
 package io.zipcoder.controller;
 
+import io.zipcoder.domain.Account;
 import io.zipcoder.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class AccountController {
@@ -16,22 +15,33 @@ public class AccountController {
 
     @RequestMapping(value = "/accounts", method = RequestMethod.GET)
     public ResponseEntity<?> getAllAccounts() {
-        return null;
+        return new ResponseEntity<>(service.getAllAccounts(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/accounts/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> getAccount(@PathVariable Long id) {
-        return null;
+        return new ResponseEntity<>(service.getAccountById(id), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/accounts/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<?> updateAccount(@PathVariable Long id) {
-        return null;
+    public ResponseEntity<?> updateAccount(@PathVariable Long id, @RequestBody Account account) {
+        if(service.updateAccount(id,account)){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
     }
 
     @RequestMapping(value = "/accounts/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteAccount(@PathVariable Long id) {
-        return null;
+        if(service.removeAccount(id)){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @RequestMapping(value = "/accounts/{id}/customer", method = RequestMethod.GET)
