@@ -19,9 +19,9 @@ public class DepositService {
         return this.depositRepository.findOne(depositId);
     }
 
-    public boolean updateDeposit(Deposit newBill){
-        if(this.depositRepository.findOne(newBill.getId()) != null) {
-            this.depositRepository.save(newBill);
+    public boolean updateDeposit(Deposit newDeposit){
+        if(this.depositRepository.findOne(newDeposit.getId()) != null) {
+            this.depositRepository.save(newDeposit);
             return true;
         }else {
             return false;
