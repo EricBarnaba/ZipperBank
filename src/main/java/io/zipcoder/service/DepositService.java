@@ -19,7 +19,7 @@ public class DepositService {
         return this.depositRepository.findOne(depositId);
     }
 
-    public boolean updateBill(Deposit newBill){
+    public boolean updateDeposit(Deposit newBill){
         if(this.depositRepository.findOne(newBill.getId()) != null) {
             this.depositRepository.save(newBill);
             return true;
@@ -28,7 +28,7 @@ public class DepositService {
         }
     }
 
-    public void deleteBillById(Long id){
+    public void deleteDepositById(Long id){
         this.depositRepository.delete(id);
     }
 }
