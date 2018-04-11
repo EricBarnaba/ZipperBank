@@ -1,7 +1,6 @@
 package io.zipcoder.domain;
 
 import io.zipcoder.Enums.Status;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 

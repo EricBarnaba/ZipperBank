@@ -1,5 +1,6 @@
 package io.zipcoder.domain;
 
+
 import io.zipcoder.Enums.DespostType;
 import io.zipcoder.Enums.Medium;
 import io.zipcoder.Enums.Status;
@@ -83,4 +84,5 @@ public class Deposit {
     public void setDescription(String description) {
         this.description = description;
     }
+
 }
