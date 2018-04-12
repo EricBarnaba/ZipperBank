@@ -1,10 +1,7 @@
 package io.zipcoder.service;
 
 import io.zipcoder.domain.*;
-import io.zipcoder.repository.AccountRepository;
-import io.zipcoder.repository.BillRepository;
-import io.zipcoder.repository.DepositRepository;
-import io.zipcoder.repository.WithdrawalRepository;
+import io.zipcoder.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,13 +16,15 @@ public class AccountService {
     private BillRepository billRepo;
     private DepositRepository depositRepo;
     private WithdrawalRepository withdrawalRepo;
+    private CustomerRepository customerRepo;
 
     @Autowired
-    public AccountService(BillRepository billRepo, AccountRepository repo, DepositRepository depositRepo, WithdrawalRepository withdrawalRepo){
+    public AccountService(BillRepository billRepo, AccountRepository repo, DepositRepository depositRepo, WithdrawalRepository withdrawalRepo, CustomerRepository customerRepo){
         this.billRepo=billRepo;
         this.repo = repo;
         this.depositRepo= depositRepo;
         this.withdrawalRepo=withdrawalRepo;
+        this.customerRepo = customerRepo;
     }
 
 
@@ -62,7 +61,9 @@ public class AccountService {
     }
 
     public Customer getAccountCustomer(Long id) {
-        return repo.findOne(id).getCustomer();
+        Account account = repo.findOne(id);
+
+        return customerRepo.findOne(account.getCustomer());
     }
 
     public List<Bill> getAccountBills(Long id) {

@@ -5,7 +5,8 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface BillRepository extends CrudRepository<Bill, Long>{
+public interface BillRepository extends CrudRepository<Bill, Long> {
 
         public Iterable<Bill> findAllByAccount_id(Long id);
 }
+

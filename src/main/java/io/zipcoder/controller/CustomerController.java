@@ -1,11 +1,13 @@
 package io.zipcoder.controller;
 
+import com.sun.deploy.net.HttpResponse;
+import io.zipcoder.domain.Account;
+import io.zipcoder.domain.Customer;
 import io.zipcoder.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class CustomerController {
@@ -18,38 +20,48 @@ public class CustomerController {
         this.service = service;
     }
 
-    @RequestMapping(value = "/customer/{customer}/accounts", method = RequestMethod.GET)
-    public ResponseEntity<?> getAllAcctsForCust() {
-        return null;
+    @RequestMapping(value = "/customers/{id}/accounts", method = RequestMethod.GET)
+    public ResponseEntity<?> getAllAcctsForCust(@PathVariable Long id) {
+
+        return new ResponseEntity<>(service.getAllAccountsForCust(id), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/customer/{customerId}/accounts", method = RequestMethod.POST)
-    public ResponseEntity<?> createAccount(){
-        return null;
+    @RequestMapping(value = "/customers/{id}/accounts", method = RequestMethod.POST)
+    public ResponseEntity<?> createAccount(@PathVariable Long id, @RequestBody Account account){
+        service.createAccount(account);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/customers", method = RequestMethod.GET)
     public ResponseEntity<?> getAllCustomers(){
-        return null;
+        return new ResponseEntity<>(service.getAllCustomers(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/customers/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> getSpecificCusomer(){
-        return null;
+    public ResponseEntity<?> getSpecificCusomer(@PathVariable Long id){
+
+        return new ResponseEntity<>(service.getCustomerById(id), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/customers", method = RequestMethod.POST)
-    public ResponseEntity<?> createACustomer(){
-        return null;
+    public ResponseEntity<?> createACustomer(@RequestBody Customer customer){
+        service.addCustomer(customer);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/customer/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<?> updateCustomer(){
-        return null;
+    public ResponseEntity<?> updateCustomer(@PathVariable Long id, @RequestBody Customer customer){
+        if(service.updateCustomer(id,customer)){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @RequestMapping(value = "/customer/{id}/bills", method = RequestMethod.GET)
-    public ResponseEntity<?> getAllBillsForCust(){
-        return null;
+    public ResponseEntity<?> getAllBillsForCust(@PathVariable Long id){
+
+        return new ResponseEntity<>(service.getAllBillsForCustomer(id), HttpStatus.OK);
     }
 }

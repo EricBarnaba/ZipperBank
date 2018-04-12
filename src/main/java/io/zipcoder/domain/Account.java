@@ -23,9 +23,9 @@ public class Account {
     @Column(name = "BALANCE")
     private Double balance;
 
-    @OneToOne
-    @JoinColumn(name = "ID")
-    private Customer customer;
+
+    @Column(name = "CUSTOMER_ID")
+    private Long customerId;
 
     public Long getId() {
         return id;
@@ -67,11 +67,11 @@ public class Account {
         this.balance = balance;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public Long getCustomer() {
+        return customerId;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setCustomer(Long customerId) {
+        this.customerId = customerId;
     }
 }
