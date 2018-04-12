@@ -1,19 +1,21 @@
 package io.zipcoder.domain;
 
 
-import io.zipcoder.Enums.DespostType;
+import io.zipcoder.Enums.DepositType;
 import io.zipcoder.Enums.Medium;
 import io.zipcoder.Enums.Status;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
 public class Deposit {
 
     @Id
+    @GeneratedValue
     private long id;
-    private DespostType type;
+    private DepositType type;
     private String transaction_date;
     private Status status;
     private long payee_id;
@@ -29,11 +31,11 @@ public class Deposit {
         this.id = id;
     }
 
-    public DespostType getType() {
+    public DepositType getType() {
         return type;
     }
 
-    public void setType(DespostType type) {
+    public void setType(DepositType type) {
         this.type = type;
     }
 

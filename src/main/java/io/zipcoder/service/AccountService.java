@@ -1,9 +1,10 @@
 package io.zipcoder.service;
 
-import io.zipcoder.domain.Account;
-import io.zipcoder.domain.Bill;
-import io.zipcoder.domain.Customer;
+import io.zipcoder.domain.*;
 import io.zipcoder.repository.AccountRepository;
+import io.zipcoder.repository.BillRepository;
+import io.zipcoder.repository.DepositRepository;
+import io.zipcoder.repository.WithdrawalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,8 +14,19 @@ import java.util.List;
 @Service
 public class AccountService {
 
+
+    private AccountRepository repo;
+    private BillRepository billRepo;
+    private DepositRepository depositRepo;
+    private WithdrawalRepository withdrawalRepo;
+
     @Autowired
-    AccountRepository repo;
+    public AccountService(BillRepository billRepo, AccountRepository repo, DepositRepository depositRepo, WithdrawalRepository withdrawalRepo){
+        this.billRepo=billRepo;
+        this.repo = repo;
+        this.depositRepo= depositRepo;
+        this.withdrawalRepo=withdrawalRepo;
+    }
 
 
     public List<Account> getAllAccounts(){
@@ -54,11 +66,39 @@ public class AccountService {
     }
 
     public List<Bill> getAccountBills(Long id) {
-        return null;
+        List<Bill> bills = new ArrayList<>();
+        for(Bill b : billRepo.findAllByAccount_id(id)) {
+            bills.add(b);
+        }
+        return bills;
     }
 
-    public void createBill(Long id, Bill bill) {
+    public void createBill(Bill bill) {
+        billRepo.save(bill);
+    }
 
+    public List<Deposit> getAccountDeposits(Long id) {
+        List<Deposit> deposits = new ArrayList<>();
+        for(Deposit d : depositRepo.findAllByPayee_id(id)) {
+            deposits.add(d);
+        }
+        return deposits;
+    }
+
+    public void createDeposit(Deposit deposit) {
+        depositRepo.save(deposit);
+    }
+
+    public List<Withdrawal> getAccountWithdrawals(Long id) {
+        List<Withdrawal> withdrawals = new ArrayList<>();
+        for(Withdrawal w : withdrawalRepo.findAllByPayee_id(id)) {
+            withdrawals.add(w);
+        }
+        return withdrawals;
+    }
+
+    public void createWithdrawal(Withdrawal withdrawal) {
+        withdrawalRepo.save(withdrawal);
     }
 
 }

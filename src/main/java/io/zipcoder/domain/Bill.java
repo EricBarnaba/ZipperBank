@@ -1,14 +1,19 @@
 package io.zipcoder.domain;
 
 import io.zipcoder.Enums.Status;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
 public class Bill {
 
     @Id
+    @GeneratedValue
     private Long id;
+
     private Status status;
     private String payee;
     private String nickname;
@@ -17,6 +22,8 @@ public class Bill {
     private Integer recurring_date;
     private String upcoming_payment_date;
     private Double paymount_amount;
+
+
     private String account_id;
 
     public Long getId() {

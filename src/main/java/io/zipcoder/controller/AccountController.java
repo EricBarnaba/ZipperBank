@@ -2,6 +2,8 @@ package io.zipcoder.controller;
 
 import io.zipcoder.domain.Account;
 import io.zipcoder.domain.Bill;
+import io.zipcoder.domain.Deposit;
+import io.zipcoder.domain.Withdrawal;
 import io.zipcoder.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,8 +13,13 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class AccountController {
 
-    @Autowired
+
     AccountService service;
+
+    @Autowired
+    public AccountController(AccountService service){
+        this.service = service;
+    }
 
     @RequestMapping(value = "/accounts", method = RequestMethod.GET)
     public ResponseEntity<?> getAllAccounts() {
@@ -52,32 +59,35 @@ public class AccountController {
 
     @RequestMapping(value = "/accounts/{id}/bills", method = RequestMethod.GET)
     public ResponseEntity<?> getAccountBills(@PathVariable Long id) {
-        return null;
+        return new ResponseEntity<>(service.getAccountBills(id), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/accounts/{id}/bills", method = RequestMethod.POST)
     public ResponseEntity<?> createBill(@PathVariable Long id, @RequestBody Bill bill) {
-        return null;
+        service.createBill(bill);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/accounts/{id}/deposits", method = RequestMethod.GET)
     public ResponseEntity<?> getAllDeposits(@PathVariable Long id) {
-        return null;
+        return new ResponseEntity<>(service.getAccountDeposits(id), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/accounts/{id}/deposits", method = RequestMethod.POST)
-    public ResponseEntity<?> createDeposit(@PathVariable Long id) {
-        return null;
+    public ResponseEntity<?> createDeposit(@PathVariable Long id, @RequestBody Deposit deposit) {
+        service.createDeposit(deposit);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/accounts/{id}/withdrawals", method = RequestMethod.GET)
     public ResponseEntity<?> getAllWithdrawals(@PathVariable Long id) {
-        return null;
+        return new ResponseEntity<>(service.getAccountWithdrawals(id), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/accounts/{id}/withdrawals", method = RequestMethod.POST)
-    public ResponseEntity<?> createWithdrawal(@PathVariable Long id) {
-        return null;
+    public ResponseEntity<?> createWithdrawal(@PathVariable Long id, @RequestBody Withdrawal withdrawal) {
+        service.createWithdrawal(withdrawal);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
 
